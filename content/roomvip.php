@@ -21,7 +21,8 @@ if (!isset($_SESSION['sess_id'])) {
       <nav class="nav">
         <ul>
           <li><a href="../dashboard.html">Home</a></li>
-          <li><a href="../contact.html">Contact Us</a></li>
+          <li><a href="../contact.php">Contact Us</a></li>
+          <li><a href="javascript:history.back()">Back</a></li>
           <li><a style="color: #ff5d5d;"href="../logout.php">Logout</a></li>
         </ul>
       </nav>
@@ -31,7 +32,7 @@ if (!isset($_SESSION['sess_id'])) {
   <section class="hero">
     <div class="container">
       <h2>Stylish Simplicity of a Hotel</h2>
-      <a href="#rooms" class="btn">Book Now</a>
+      <a href="../booking/bookvip.php" class="btn" >Book Now</a>
     </div>
   </section>
 
@@ -45,7 +46,7 @@ if (!isset($_SESSION['sess_id'])) {
         <li>✔ Free Wi-Fi</li>
         <li>✔ Car Parking</li>
         <li>✔ Four Bed</li>
-        <li>✔ One kitchen</li>
+        <li>✔ Kitchen</li>
         <li>✔ Free Fitness Zone</li>
         <li>✔ Private Swimming Pool</li> 
       </ul>
@@ -57,5 +58,7 @@ if (!isset($_SESSION['sess_id'])) {
       <p>© 2024 Book a hotel. All rights reserved.</p>
     </div>
   </footer>
+
+
 </body>
 </html>

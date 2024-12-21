@@ -4,14 +4,13 @@ if (!isset($_SESSION['sess_id'])) {
     header('Location: ../login.php'); 
     exit();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wiin Phetchaburi</title>
+  <title>Hotel Booking<</title>
   <link rel="stylesheet" href="../css/rstan.css">
 </head>
 <body>
@@ -21,17 +20,20 @@ if (!isset($_SESSION['sess_id'])) {
       <nav class="nav">
         <ul>
           <li><a href="../dashboard.html">Home</a></li>
-          <li><a href="../contact.html">Contact Us</a></li>
-          <li><a style="color: #ff5d5d;"href="../logout.php">Logout</a></li>
+          <li><a href="../contact.php">Contact Us</a></li>
+          <li><a href="javascript:history.back()">Back</a></li>
+          <li><a style="color: #ff5d5d;" href="../logout.php">Logout</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
+  
   <section class="hero">
+    <div class="backgound"></div>
     <div class="container">
       <h2>Stylish Simplicity of a Hotel</h2>
-      <a href="#rooms" class="btn">Book Now</a>
+      <a href="../booking/bookstandard.php" class="btn" >Book Now</a>
     </div>
   </section>
 
@@ -53,5 +55,6 @@ if (!isset($_SESSION['sess_id'])) {
       <p>© 2024 Book a hotel. All rights reserved.</p>
     </div>
   </footer>
+
 </body>
 </html>
