@@ -11,7 +11,7 @@ if (!isset($_SESSION['sess_id'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hotel Booking<</title>
+  <title>Hotel Booking</title>
   <link rel="stylesheet" href="../css/rvip.css">
 </head>
 <body>
@@ -120,7 +120,7 @@ if (!isset($_SESSION['sess_id'])) {
       const dayDiff = timeDiff / (1000 * 3600 * 24); // Convert time difference to days
 
       if (dayDiff > 0) {
-        // Price per day (500)
+        // Price per day (3000)
         const price = dayDiff * 3000;
         document.getElementById('price').value = price;
       } else {
@@ -132,6 +132,34 @@ if (!isset($_SESSION['sess_id'])) {
   // Add event listeners to the date inputs to recalculate the price
   document.getElementById('checkin').addEventListener('change', calculatePrice);
   document.getElementById('checkout').addEventListener('change', calculatePrice);
+
+  // Function to scroll gradually to the form section
+  function smoothScrollToForm() {
+    const formSection = document.querySelector('.form-section');
+    if (formSection) {
+      let targetPosition = formSection.offsetTop;  // Get the position of the form section
+      let currentPosition = window.pageYOffset;  // Get the current scroll position
+      let distance = targetPosition - currentPosition;  // Calculate the distance to scroll
+      let step = distance / 100;  // Define how much to scroll per step (more steps = slower scroll)
+      
+      function scrollStep() {
+        currentPosition += step;  // Increment current position by step
+        window.scrollTo(0, currentPosition);  // Scroll to the new position
+        if ((step > 0 && currentPosition < targetPosition) || (step < 0 && currentPosition > targetPosition)) {
+          requestAnimationFrame(scrollStep);  // Continue scrolling until the target is reached
+        }
+      }
+      requestAnimationFrame(scrollStep);  // Start the scrolling animation
+    }
+  }
+
+  // Scroll to the form section and focus on the first input field when the page loads
+  window.onload = function() {
+    smoothScrollToForm();  // Trigger the smooth scroll
+    document.getElementById('firstname').focus();  // Focus on the first input field
+  };
 </script>
+
+
 </body>
 </html>

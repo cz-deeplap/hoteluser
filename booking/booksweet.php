@@ -11,7 +11,7 @@ if (!isset($_SESSION['sess_id'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hotel Booking<</title>
+  <title>Hotel Booking</title>
   <link rel="stylesheet" href="../css/rswt.css">
 </head>
 <body>
