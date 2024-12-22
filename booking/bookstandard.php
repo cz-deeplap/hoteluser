@@ -1,4 +1,7 @@
 <?php
+
+require_once('../count.php');
+
 session_start();
 
 // Redirect to login if the user is not logged in
@@ -93,6 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <section id="about" class="about">
     <div class="container">
       <h2>Standard Room</h2>
+      <h4>Room available <?php echo $standardCount ?>/29</h4>
       <p>
       Relax in our Standard Room, designed for comfort and convenience. Enjoy essential amenities and a cozy atmosphere, perfect for a restful stay. Book now for an affordable and pleasant experience.
       </p>

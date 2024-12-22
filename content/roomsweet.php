@@ -1,4 +1,7 @@
 <?php
+
+require_once('../count.php');
+
 session_start();
 if (!isset($_SESSION['sess_id'])) {
     header('Location: ../login.php'); 
@@ -39,6 +42,7 @@ if (!isset($_SESSION['sess_id'])) {
   <section id="about" class="about">
     <div class="container">
       <h2>Sweet Room</h2>
+      <h4>Room available <?php echo $sweetCount ?>/20</h4>
       <p>
         Discover the perfect romantic getaway in our Sweet Room, designed for love and intimacy. Experience luxurious amenities, elegant décor, and stunning views, creating the ideal atmosphere for your special moments together. Book now for an unforgettable stay.
       </p>

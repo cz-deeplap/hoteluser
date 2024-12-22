@@ -1,4 +1,7 @@
 <?php
+
+require_once('../count.php');
+
 session_start();
 if (!isset($_SESSION['sess_id'])) {
     header('Location: ../login.php'); 
@@ -39,6 +42,7 @@ if (!isset($_SESSION['sess_id'])) {
   <section id="about" class="about">
     <div class="container">
       <h2>VIP Room</h2>
+      <h4>Room available <?php echo $vipCount ?>/10</h4>
       <p>
         Discover ultimate luxury in our VIP room, designed for sophistication and comfort. Enjoy premium amenities, elegant décor, and breathtaking views, perfect for work or relaxation. Book now to elevate your stay.
       </p>

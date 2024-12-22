@@ -1,4 +1,7 @@
 <?php
+
+require_once('../count.php');
+
 session_start();
 if (!isset($_SESSION['sess_id'])) {
     header('Location: ../login.php'); 
@@ -40,6 +43,7 @@ if (!isset($_SESSION['sess_id'])) {
   <section id="about" class="about">
     <div class="container">
       <h2>Standard Room</h2>
+      <h4>Vacant room <?php echo $standardCount ?>/29</h4>
       <p>
       Relax in our Standard Room, designed for comfort and convenience. Enjoy essential amenities and a cozy atmosphere, perfect for a restful stay. Book now for an affordable and pleasant experience.
       </p>

@@ -105,9 +105,15 @@ body::-webkit-scrollbar {
   
   .about h2 {
     text-align: center;
+    margin-bottom: 5px;
+  }
+
+  .about h4 {
+    color: red;
+    text-align: center;
     margin-bottom: 20px;
   }
-  
+
   .about p {
     margin-bottom: 20px;
     text-align: center;

@@ -1,4 +1,7 @@
 <?php
+
+require_once('../count.php');
+
 session_start();
 
 // Redirect to login if the user is not logged in
@@ -92,6 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <section id="about" class="about">
     <div class="container">
       <h2>Sweet Room</h2>
+      <h4>Room available <?php echo $sweetCount ?>/20</h4>
       <p>
         Discover the perfect romantic getaway in our Sweet Room, designed for love and intimacy. Experience luxurious amenities, elegant décor, and stunning views, creating the ideal atmosphere for your special moments together. Book now for an unforgettable stay.
       </p>
