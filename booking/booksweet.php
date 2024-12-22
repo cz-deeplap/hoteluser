@@ -1,11 +1,64 @@
 <?php
 session_start();
+
+// Redirect to login if the user is not logged in
 if (!isset($_SESSION['sess_id'])) {
     header('Location: ../login.php'); 
     exit();
 }
 
+// Database connection class
+class DB_con {
+    private $dbcon;
+
+    public function __construct() {
+        $conn = mysqli_connect('localhost', 'root', '', 'db_project');
+        $this->dbcon = $conn;
+
+        if (mysqli_connect_errno()) {
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+            exit();
+        }
+    }
+
+    public function insertBooking($firstname, $lastname, $phone, $checkin, $checkout, $price, $roomtype, $bankSlipPath) {
+        $query = "INSERT INTO tb_booking (firstname, lastname, phone, checkin, checkout, price, roomtype, bank_slip) 
+                  VALUES ('$firstname', '$lastname', '$phone', '$checkin', '$checkout', '$price', '$roomtype', '$bankSlipPath')";
+        return mysqli_query($this->dbcon, $query);
+    }
+}
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $phone = $_POST['phone'];
+    $checkin = $_POST['checkin'];
+    $checkout = $_POST['checkout'];
+    $price = $_POST['price'];
+    $roomtype = $_POST['roomtype'];
+
+    // Handle file upload
+    $bankSlip = $_FILES['bank_slip'];
+    $uploadDir = '../uploads/';
+    $uploadFilePath = $uploadDir . basename($bankSlip['name']);
+
+    if (move_uploaded_file($bankSlip['tmp_name'], $uploadFilePath)) {
+        // Insert booking data into the database
+        $db = new DB_con();
+        $result = $db->insertBooking($firstname, $lastname, $phone, $checkin, $checkout, $price, $roomtype, $uploadFilePath);
+
+        if ($result) {
+            echo "<script>alert('Booking successful!'); window.location.href = '../success.php';</script>";
+        } else {
+            echo "<script>alert('Error while booking. Please try again.');</script>";
+        }
+    } else {
+        echo "<script>alert('Failed to upload bank slip. Please try again.');</script>";
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +76,7 @@ if (!isset($_SESSION['sess_id'])) {
           <li><a href="../dashboard.html">Home</a></li>
           <li><a href="../contact.php">Contact Us</a></li>
           <li><a href="javascript:history.go(-2)">Back</a></li>
-          <li><a style="color: #ff5d5d;"href="../logout.php">Logout</a></li>
+          <li><a style="color: #ff5d5d;" href="../logout.php">Logout</a></li>
         </ul>
       </nav>
     </div>
@@ -32,7 +85,7 @@ if (!isset($_SESSION['sess_id'])) {
   <section class="hero">
     <div class="container">
       <h2>Stylish Simplicity of a Hotel</h2>
-      <a href="#rooms" class="btn" >Book Now</a>
+      <a href="#rooms" class="btn">Book Now</a>
     </div>
   </section>
 
@@ -52,7 +105,7 @@ if (!isset($_SESSION['sess_id'])) {
 
   <section class="form-section">
     <div class="container-1">
-      <form action="book.php" method="POST" enctype="multipart/form-data">
+      <form action="" method="POST" enctype="multipart/form-data">
         <div class="form-group">
           <label for="firstname">First Name:</label>
           <input type="text" id="firstname" name="firstname" placeholder="Enter Firstname" required>
@@ -65,23 +118,23 @@ if (!isset($_SESSION['sess_id'])) {
 
         <div class="form-group">
           <label for="phone">Phone Number:</label>
-          <input type="text" id="phone" name="phone" placeholder="Enter phonenumer" required>
+          <input type="text" id="phone" name="phone" placeholder="Enter Phone Number" required>
         </div>
 
         <div class="form-group">
           <label for="checkin">Check-in Date:</label>
-          <input type="date" id="checkin" name="checkin" placeholder="ee" required>
+          <input type="date" id="checkin" name="checkin" required>
         </div>
 
         <div class="form-group">
           <label for="checkout">Check-out Date:</label>
-          <input type="date" id="checkout" name="checkout" placeholder="ee" required>
+          <input type="date" id="checkout" name="checkout" required>
         </div>
 
         <div class="form-group">
           <label for="price">Price:</label>
           <input type="text" id="price" name="price" readonly>
-          <input type="hidden" id="roomtype" name="roomtype" value="standard" readonly>
+          <input type="hidden" id="roomtype" name="roomtype" value="sweet" readonly>
         </div>
 
         <div class="form-group">
@@ -116,7 +169,7 @@ if (!isset($_SESSION['sess_id'])) {
       const dayDiff = timeDiff / (1000 * 3600 * 24); // Convert time difference to days
 
       if (dayDiff > 0) {
-        // Price per day (500)
+        // Price per day (1500)
         const price = dayDiff * 1500;
         document.getElementById('price').value = price;
       } else {
@@ -128,6 +181,31 @@ if (!isset($_SESSION['sess_id'])) {
   // Add event listeners to the date inputs to recalculate the price
   document.getElementById('checkin').addEventListener('change', calculatePrice);
   document.getElementById('checkout').addEventListener('change', calculatePrice);
-</script>
+
+  function smoothScrollToForm() {
+    const formSection = document.querySelector('.form-section');
+    if (formSection) {
+      let targetPosition = formSection.offsetTop;  // Get the position of the form section
+      let currentPosition = window.pageYOffset;  // Get the current scroll position
+      let distance = targetPosition - currentPosition;  // Calculate the distance to scroll
+      let step = distance / 100;  // Define how much to scroll per step (more steps = slower scroll)
+      
+      function scrollStep() {
+        currentPosition += step;  // Increment current position by step
+        window.scrollTo(0, currentPosition);  // Scroll to the new position
+        if ((step > 0 && currentPosition < targetPosition) || (step < 0 && currentPosition > targetPosition)) {
+          requestAnimationFrame(scrollStep);  // Continue scrolling until the target is reached
+        }
+      }
+      requestAnimationFrame(scrollStep);  // Start the scrolling animation
+    }
+  }
+
+  // Scroll to the form section and focus on the first input field when the page loads
+  window.onload = function() {
+    smoothScrollToForm();  // Trigger the smooth scroll
+    document.getElementById('firstname').focus();  // Focus on the first input field
+  };
+  </script>
 </body>
 </html>
