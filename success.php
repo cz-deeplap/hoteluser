@@ -13,9 +13,9 @@
       <div class="icon-check">
         <img src="img/success.png" alt="Success" />
       </div>
-      <h2>ขอบคุณที่จองห้องกับ Booking Hotel</h2>
-      <p>ทางพนักงานจะติดต่อกลับไปภายในเวลา10-20นาที</p>
-      <a class="btn" href="dashboard.html">กลับสู่หน้าหลัก</a>
+      <h2>Thank you for booking room with Our</h2>
+      <p>The staff will contact you back within 10-20 minutes</p>
+      <a class="btn" href="dashboard.html">Return to home page</a>
     </div>
   </main>
 
