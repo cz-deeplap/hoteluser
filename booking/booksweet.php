@@ -6,7 +6,7 @@ session_start();
 
 // Redirect to login if the user is not logged in
 if (!isset($_SESSION['sess_id'])) {
-    header('Location: ../login.php'); 
+    header('Location: ../login.php');
     exit();
 }
 
@@ -24,9 +24,9 @@ class DB_con {
         }
     }
 
-    public function insertBooking($firstname, $lastname, $phone, $checkin, $checkout, $price, $roomtype, $bankSlipPath) {
+    public function insertBooking($firstname, $lastname, $phone, $checkin, $checkout, $price, $roomtype, $bankSlipName) {
         $query = "INSERT INTO tb_booking (firstname, lastname, phone, checkin, checkout, price, roomtype, bank_slip) 
-                  VALUES ('$firstname', '$lastname', '$phone', '$checkin', '$checkout', '$price', '$roomtype', '$bankSlipPath')";
+                  VALUES ('$firstname', '$lastname', '$phone', '$checkin', '$checkout', '$price', '$roomtype', '$bankSlipName')";
         return mysqli_query($this->dbcon, $query);
     }
 }
@@ -43,13 +43,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Handle file upload
     $bankSlip = $_FILES['bank_slip'];
-    $uploadDir = '../uploads/';
-    $uploadFilePath = $uploadDir . basename($bankSlip['name']);
+    $uploadDir = '../uploads/';  // Upload directory (relative to this file)
+    $bankSlipName = basename($bankSlip['name']);  // Only store the file name
 
-    if (move_uploaded_file($bankSlip['tmp_name'], $uploadFilePath)) {
+    // Check if the uploads directory exists, if not, create it
+    if (!file_exists($uploadDir)) {
+        mkdir($uploadDir, 0777, true);  // Create the directory with proper permissions
+    }
+
+    // Move the file to the uploads directory
+    if (move_uploaded_file($bankSlip['tmp_name'], $uploadDir . $bankSlipName)) {
         // Insert booking data into the database
         $db = new DB_con();
-        $result = $db->insertBooking($firstname, $lastname, $phone, $checkin, $checkout, $price, $roomtype, $uploadFilePath);
+        $result = $db->insertBooking($firstname, $lastname, $phone, $checkin, $checkout, $price, $roomtype, $bankSlipName);
 
         if ($result) {
             echo "<script>alert('Booking successful!'); window.location.href = '../success.php';</script>";
