@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <nav class="nav">
         <ul>
           <li><a href="../dashboard.html">Home</a></li>
-          <li><a href="../contact.php">Contact Us</a></li>
+          <li><a href="../contact.php">Contact</a></li>
           <li><a href="javascript:history.go(-2)">Back</a></li>
           <li><a style="color: #ff5d5d;" href="../logout.php">Logout</a></li>
         </ul>
