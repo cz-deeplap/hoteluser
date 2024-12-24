@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 23, 2024 at 03:37 AM
+-- Generation Time: Dec 24, 2024 at 03:17 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -136,13 +136,6 @@ CREATE TABLE `tb_booking` (
   `bank_slip` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tb_booking`
---
-
-INSERT INTO `tb_booking` (`firstname`, `lastname`, `phone`, `checkin`, `checkout`, `price`, `roomtype`, `bank_slip`) VALUES
-('qqq', 'qq', '11', '2024-12-23', '2024-12-25', 3000.00, 'sweet', 'slip.png');
-
 -- --------------------------------------------------------
 
 --
@@ -162,8 +155,7 @@ CREATE TABLE `tb_user` (
 --
 
 INSERT INTO `tb_user` (`user_id`, `username`, `password`, `firstname`, `lastname`) VALUES
-(1, 'user', '1', 'test', 'test'),
-(2, 'user11', 'zzz', 'heng', 'heng');
+(1, 'user', '1', 'test', 'test');
 
 --
 -- Indexes for dumped tables
@@ -207,7 +199,7 @@ ALTER TABLE `tb_addmin`
 -- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
